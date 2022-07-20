@@ -71,9 +71,9 @@ function setLocalStorage() {
     let timeOfDay = getTimeOfDay();
     const img = new Image();
     if(randomNum < 10){
-        img.src =`https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/0${randomNum}.jpg`
+        img.src =`https://raw.githubusercontent.com/gekalo1025/momentum-image/assets/images/${timeOfDay}/0${randomNum}.jpg`
     }else{
-        img.src =`https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${randomNum}.jpg`
+        img.src =`https://raw.githubusercontent.com/gekalo1025/momentum-image/assets/images/${timeOfDay}/${randomNum}.jpg`
     }
     img.onload = () => {      
       body.style.backgroundImage = `url(${img.src})`;
