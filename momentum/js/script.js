@@ -31,8 +31,8 @@ const DATE = new Date();
 const hours = DATE.getHours();
 if(hours>=6 && hours<12){timeOfDay = 'morning'}
 if(hours>=12 && hours<18){timeOfDay = 'afternoon'}
-if(hours>=18 && hours<0){timeOfDay = 'evening'}
-if(hours>=0 && hours<6){timeOfDay = 'night'}
+if(hours >= 18 && hours<00){timeOfDay = 'evening'}//ошибка сравнения
+if(hours>=00 && hours<6){timeOfDay = 'night'}//ошибка сравнения
 return timeOfDay
 }
 
@@ -151,3 +151,84 @@ function setLocalStorage() {
   getQuotes();
 
   buttonChangeQuote.addEventListener('click', getQuotes);
+
+
+  // Audio player//
+const playPrevButton  = document.querySelector('.play-prev');
+const play = document.querySelector('.play');
+const playNextButton = document.querySelector('.play-next');
+const audio = new Audio();
+const playListContainer =document.querySelector('.play-list')
+
+let isPlay = false;
+let playNum = 0;
+
+function playAudio() {
+  if(!isPlay){
+    audio.src = playList[playNum].src;
+    audio.currentTime = 0;
+    audio.play();
+    isPlay=true;
+  }else{
+    audio.pause();
+    isPlay=false;
+  }
+}
+
+function toggleBtn() {
+  if(isPlay){
+    play.classList.add('pause');
+  }else{
+    play.classList.remove('pause');
+  }
+}
+
+function playNext() {
+  console.log(playList.length-1)
+  if(playNum===playList.length-1){
+    playNum=0;
+    audio.src = playList[playNum].src;
+    audio.currentTime = 0;
+    audio.play();
+    isPlay=true;
+  }else{
+    playNum++;
+    audio.src = playList[playNum].src;
+    audio.currentTime = 0;
+    audio.play();
+    isPlay=true;
+  }
+
+}
+function playPrev() {
+  console.log(playList.length-1)
+  if(playNum===0){
+    playNum=playList.length-1;
+    audio.src = playList[playNum].src;
+    audio.currentTime = 0;
+    audio.play();
+    isPlay=true;
+  }else{
+    playNum--;
+    audio.src = playList[playNum].src;
+    audio.currentTime = 0;
+    audio.play();
+    isPlay=true;
+  }
+
+}
+
+play.addEventListener('click', playAudio);
+playNextButton.addEventListener('click', playNext);
+playPrevButton.addEventListener('click', playPrev);
+play.addEventListener('click', toggleBtn);
+playNextButton.addEventListener('click', toggleBtn);
+playPrevButton.addEventListener('click', toggleBtn);
+
+playList.forEach(el => {
+  let li = document.createElement('li');
+  li.classList.add('play-item')
+  li.textContent= `${el.title}`
+  playListContainer.append(li)
+})
+
