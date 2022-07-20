@@ -44,6 +44,7 @@ showGreeting();
 const name = document.querySelector('.name')
 function setLocalStorage() {
     localStorage.setItem('name',name.value);
+    localStorage.setItem('city',cityWeather.value);
   }
   window.addEventListener('beforeunload', setLocalStorage)
 
@@ -51,6 +52,9 @@ function setLocalStorage() {
   function getLocalStorage() {
     if(localStorage.getItem('name')) {
       name.value = localStorage.getItem('name');
+    }
+    if(localStorage.getItem('city')) {
+      cityWeather.value = localStorage.getItem('city');
     }
   }
   window.addEventListener('load', getLocalStorage)
@@ -104,3 +108,30 @@ function setLocalStorage() {
   }
   nextSlide.addEventListener('click', getSlideNext);
   prevSlide.addEventListener('click', getSlidePrev);
+
+
+  ///Weather widget//
+  const cityWeather = document.querySelector('.city')
+  const weatherIcon = document.querySelector('.weather-icon');
+  const temperature = document.querySelector('.temperature');
+  const weatherDescription = document.querySelector('.weather-description');
+  const wind = document.querySelector('.wind');
+  const humidity = document.querySelector('.humidity');
+  async function getWeather() {  
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityWeather.value}&lang=en&appid=58d929a5a5f597ab9ea5eb33708779fd&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json(); 
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${Math.round(data.main.temp)}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+    wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`
+    humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`
+
+  }
+
+  cityWeather.addEventListener('change', getWeather);
+  getWeather()
+
+
+  //Quote of the day widget//
