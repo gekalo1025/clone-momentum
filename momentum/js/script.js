@@ -135,3 +135,19 @@ function setLocalStorage() {
 
 
   //Quote of the day widget//
+
+  const quote = document.querySelector('.quote')
+  const author = document.querySelector('.author')
+  const buttonChangeQuote = document.querySelector('.change-quote')
+
+  async function getQuotes() {  
+    const quotes = 'data.json';
+    const res = await fetch(quotes);
+    const data = await res.json();
+    let randomQutes = getRandomNum(0,data.length);
+    quote.textContent = `"${data[randomQutes].text}"`;
+    author.textContent = data[randomQutes].author
+  }
+  getQuotes();
+
+  buttonChangeQuote.addEventListener('click', getQuotes);
