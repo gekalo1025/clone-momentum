@@ -1,4 +1,5 @@
-[
+{
+    "ru": [
     {
       "text": "Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живете",
       "author": "Стив Макконнелл"
@@ -13,22 +14,56 @@
     },
       {
       "text": "Низкоуровневый язык — это когда требуется внимание к вещам, которые никак не связаны с программами на этом языке.",
-      "author": "Alan J. Perlis"
+      "author": "Алан Дж. Перлис"
     },
       {
       "text": "Программирование на С похоже на быстрые танцы на только что отполированном полу людей с острыми бритвами в руках.",
-      "author": "Waldi Ravens"
+      "author": "Уолди Рэйвенс"
     },
       {
       "text": "Не волнуйтесь, если что-то не работает. Если бы всё работало, вас бы уволили.",
-      "author": "Mosher’s Law of Software Engineering"
+      "author": "Закон Мошера в программной инженерии"
     },
       {
       "text": "В хорошем дизайне добавление чего-то стоит дешевле, чем сама эта вещь.",
-      "author": "Thomas C. Gale"
+      "author": "Томас С. Гейл"
     },
       {
       "text": "В теории, теория и практика неразделимы. На практике это не так.",
-      "author": "Yoggi Berra"
+      "author": "Йогги Берра"
     }
-  ] 
+    ],
+    "en-US" :[
+      {
+        "text": "C makes it easy to shoot yourself in the foot; C++ makes it harder, but when you do, it blows away your whole leg.",
+        "author": "Stroustrup"
+      },
+      {
+        "text": "The use of COBOL cripples the mind; its teaching should, therefore, be regarded as a criminal offense.",
+        "author": "Dijkstra"
+      },
+      {
+        "text": "I invented the term 'Object-Oriented', and I can tell you I did not have C++ in mind",
+        "author": "Alan Kay"
+      },
+      {
+        "text": "Beware of bugs in the above code; I have only proved it correct, not tried it.",
+        "author": "Donald E. Knuth."
+      },
+      {
+        "text": "Computer system analysis is like child-rearing; you can do grievous damage, but you cannot ensure success.",
+        "author": "Tom DeMarco"
+      },
+      {
+        "text": "I don't care if it works on your machine! We are not shipping your machine!",
+        "author": "Vidiu Platon"
+      },
+      {
+        "text": "Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday's code.",
+        "author": "Christopher Thompson"
+      }
+
+
+    ]
+
+}

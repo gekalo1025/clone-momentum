@@ -5,7 +5,7 @@ const date = document.querySelector('.date')
 const userLanguages = navigator.language
 function  showTime (){
     const DATE = new Date();
-    const currentTime = DATE.toLocaleTimeString()
+    const currentTime = DATE.toLocaleTimeString(userLanguages,{hour12: false})
     time.textContent = currentTime;
     showData();
     getTimeOfDay();
@@ -14,7 +14,7 @@ function  showTime (){
 function showData(){
     const DATE = new Date();
     
-    const options = {weekday:'long',month: 'long', day: 'numeric', };
+    const options = {weekday:'long',month: 'long', day: 'numeric',};
     const currentDate = DATE.toLocaleDateString(userLanguages,options);
     date.textContent = currentDate;
     
@@ -22,26 +22,26 @@ function showData(){
 showTime();
 
 //Greetings///
-
 const greeting = document.querySelector('.greeting');
+const name = document.querySelector('.name')
+name.placeholder =`${greetingTranslation['placeholder'][userLanguages]}`
 
 function getTimeOfDay(){
 let timeOfDay;
 const DATE = new Date();
-const hours = DATE.getHours();
-if(hours>=6 && hours<12){timeOfDay = 'morning'}
-if(hours>=12 && hours<18){timeOfDay = 'afternoon'}
-if(hours >= 18 && hours<00){timeOfDay = 'evening'}//ошибка сравнения
-if(hours>=00 && hours<6){timeOfDay = 'night'}//ошибка сравнения
+const minutes = (DATE.getHours()*60)+DATE.getMinutes();
+if(minutes>=0 && minutes<360){timeOfDay = 'night'}
+if(minutes>=360 && minutes<720){timeOfDay = 'morning'}
+if(minutes>=720 && minutes<1080){timeOfDay = 'afternoon'}
+if(minutes >= 1080 && minutes< 1440){timeOfDay = 'evening'}
 return timeOfDay
 }
 
 function showGreeting() {
-        greeting.textContent=`Good ${getTimeOfDay()}`
+        greeting.textContent= `${greetingTranslation[getTimeOfDay()][userLanguages]}`
     }
 showGreeting();
 ////сохранение переменных в local storege при событии beforeunload
-const name = document.querySelector('.name')
 function setLocalStorage() {
     localStorage.setItem('name',name.value);
     localStorage.setItem('city',cityWeather.value);
@@ -111,22 +111,25 @@ function setLocalStorage() {
 
 
   ///Weather widget//
-  const cityWeather = document.querySelector('.city')
+  let cityWeather = document.querySelector('.city')
   const weatherIcon = document.querySelector('.weather-icon');
   const temperature = document.querySelector('.temperature');
   const weatherDescription = document.querySelector('.weather-description');
   const wind = document.querySelector('.wind');
   const humidity = document.querySelector('.humidity');
+  
+  cityWeather.value =`${weatherTranslation['defaultCity'][userLanguages]}`;
+
   async function getWeather() {  
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityWeather.value}&lang=en&appid=58d929a5a5f597ab9ea5eb33708779fd&units=metric`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityWeather.value}&lang=${userLanguages}&appid=58d929a5a5f597ab9ea5eb33708779fd&units=metric`;
     const res = await fetch(url);
     const data = await res.json(); 
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${Math.round(data.main.temp)}°C`;
     weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`
-    humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`
+    wind.textContent = `${weatherTranslation['windSpeed'][userLanguages]}: ${Math.round(data.wind.speed)} m/s`
+    humidity.textContent = `${weatherTranslation['Humidity'][userLanguages]}: ${Math.round(data.main.humidity)}%`
 
   }
 
@@ -144,9 +147,9 @@ function setLocalStorage() {
     const quotes = 'data.json';
     const res = await fetch(quotes);
     const data = await res.json();
-    let randomQutes = getRandomNum(0,data.length);
-    quote.textContent = `"${data[randomQutes].text}"`;
-    author.textContent = data[randomQutes].author
+    let randomQutes = getRandomNum(0,data[userLanguages].length);
+    quote.textContent = `"${data[userLanguages][randomQutes].text}"`;
+    author.textContent = data[userLanguages][randomQutes].author
   }
   getQuotes();
 
@@ -184,7 +187,6 @@ function toggleBtn() {
 }
 
 function playNext() {
-  console.log(playList.length-1)
   if(playNum===playList.length-1){
     playNum=0;
     audio.src = playList[playNum].src;
@@ -201,7 +203,6 @@ function playNext() {
 
 }
 function playPrev() {
-  console.log(playList.length-1)
   if(playNum===0){
     playNum=playList.length-1;
     audio.src = playList[playNum].src;
