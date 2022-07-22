@@ -41,6 +41,8 @@ function showGreeting() {
         greeting.textContent= `${greetingTranslation[getTimeOfDay()][userLanguages]}`
     }
 showGreeting();
+
+
 ////сохранение переменных в local storege при событии beforeunload
 function setLocalStorage() {
     localStorage.setItem('name',name.value);
@@ -60,6 +62,14 @@ function setLocalStorage() {
   window.addEventListener('load', getLocalStorage)
   
 
+  name.addEventListener('change',nameCheck)
+
+function nameCheck(){     //изменить название функции оно не корекктное
+
+if (name.value== ""){
+  name.value = localStorage.getItem('name');
+}
+}
   /////slider image///
   const body = document.querySelector('body')
 
@@ -69,8 +79,8 @@ function setLocalStorage() {
     return Math.floor(Math.random() * (max - min + 1)) + min; 
 
   }
-  let randomNum = getRandomNum(1,20);
 
+  let randomNum = getRandomNum(1,20);
   function setBg(){
     let timeOfDay = getTimeOfDay();
     const img = new Image();
@@ -83,6 +93,7 @@ function setLocalStorage() {
       body.style.backgroundImage = `url(${img.src})`;
     }; 
   }
+  setBg();//видно старое изображение при обновлении страницы. переход не плавный
   const nextSlide = document.querySelector('.slide-next')
   const prevSlide = document.querySelector('.slide-prev')
 
@@ -117,24 +128,39 @@ function setLocalStorage() {
   const weatherDescription = document.querySelector('.weather-description');
   const wind = document.querySelector('.wind');
   const humidity = document.querySelector('.humidity');
-  
-  cityWeather.value =`${weatherTranslation['defaultCity'][userLanguages]}`;
+  // не работает 
+  if(cityWeather.value =="Minsk" || cityWeather.value =="Минск"){
+    cityWeather.value = weatherTranslation['defaultCity'][userLanguages];
+  }else{
+    cityWeather.value = localStorage.getItem('city');
+  }
 
   async function getWeather() {  
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityWeather.value}&lang=${userLanguages}&appid=58d929a5a5f597ab9ea5eb33708779fd&units=metric`;
     const res = await fetch(url);
     const data = await res.json(); 
-    weatherIcon.className = 'weather-icon owf';
-    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    temperature.textContent = `${Math.round(data.main.temp)}°C`;
-    weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = `${weatherTranslation['windSpeed'][userLanguages]}: ${Math.round(data.wind.speed)} m/s`
-    humidity.textContent = `${weatherTranslation['Humidity'][userLanguages]}: ${Math.round(data.main.humidity)}%`
-
+    if(cityWeather.value && !data.message){
+      weatherIcon.className = 'weather-icon owf';
+      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+      temperature.textContent = `${Math.round(data.main.temp)}°C`;
+      weatherDescription.textContent = data.weather[0].description;
+      wind.textContent = `${weatherTranslation['windSpeed'][userLanguages]}: ${Math.round(data.wind.speed)} m/s`
+      humidity.textContent = `${weatherTranslation['Humidity'][userLanguages]}: ${Math.round(data.main.humidity)}%`
+    }else {
+      weatherIcon.className = 'weather-icon owf';
+      temperature.textContent = '';
+      weatherDescription.textContent = 'Enter an existing city';
+      wind.textContent = '';
+      humidity.textContent = '';
+      alert('City not found');
+      
+    }
+    
   }
-
+  
   cityWeather.addEventListener('change', getWeather);
-  getWeather()
+  window.addEventListener('load', getWeather);
+  getWeather();
 
 
   //Quote of the day widget//
@@ -233,3 +259,4 @@ playList.forEach(el => {
   playListContainer.append(li)
 })
 
+///settings//

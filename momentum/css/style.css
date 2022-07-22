@@ -250,6 +250,26 @@ body {
   min-height: 160px;  
   padding: 20px;
 }
+/* .popup-setting{
+display: flex;
+color: black;
+position: absolute;
+bottom: 8%;
+left:1%;
+width: 30%;
+height: 50%;
+background-color: white;
+
+}
+.setting-name{
+  flex-basis: 66%;
+}
+.setting-button{
+position: fixed;
+bottom: 5%;
+left:2%;
+
+} */
 
 .change-quote {
   margin-bottom: 30px;
