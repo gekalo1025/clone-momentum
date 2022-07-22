@@ -71,51 +71,66 @@ if (name.value== ""){
 }
 }
   /////slider image///
-  const body = document.querySelector('body')
-
   function getRandomNum(min,max){
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; 
-
+  
   }
-
-  let randomNum = getRandomNum(1,20);
-  function setBg(){
-    let timeOfDay = getTimeOfDay();
-    const img = new Image();
-    if(randomNum < 10){
-        img.src =`https://raw.githubusercontent.com/gekalo1025/momentum-image/assets/images/${timeOfDay}/0${randomNum}.jpg`
-    }else{
-        img.src =`https://raw.githubusercontent.com/gekalo1025/momentum-image/assets/images/${timeOfDay}/${randomNum}.jpg`
+//Получение фонового изображения от API//
+  //Unsplash API
+  const img = new Image();
+  async function getLinkToImageUnsplash() {
+    const url = `https://api.unsplash.com/photos/random?query=${getTimeOfDay()}&client_id=JOsDS9Zcf48JPaV00O7TLVMCHBd41Qx6AAOXgoivMPg`;
+    const res = await fetch(url);
+    const data = await res.json();
+    let link = data.urls.regular
+    img.src = `${link}`
+    if (data == '403'){
+      return false;
     }
-    img.onload = () => {      
-      body.style.backgroundImage = `url(${img.src})`;
-    }; 
   }
+  //Flickr API
+  async function getLinkToImageFlickr() {
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=2592cb1a018c47146cbc218bd58490e7&tags=${getTimeOfDay()}&extras=url_l&format=json&nojsoncallback=1`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const link = await data.photos.photo[getRandomNum(0,data.photos.photo.length)].url_l
+    img.src = `${link}`
+    if (data == '403'){
+      return false;
+    }
+  }
+//  getLinkToImageFlickr()
+// getLinkToImageUnsplash();
+
+  const body = document.querySelector('body')
+   
+  function setBg(){
+    if (getLinkToImageUnsplash()){
+      getLinkToImageFlickr()
+      img.onload = () => {      
+        body.style.backgroundImage = `url(${img.src})`;
+    }
+  }
+    else if(getLinkToImageFlickr){
+      getLinkToImageUnsplash()
+      img.onload = () => {      
+        body.style.backgroundImage = `url(${img.src})`;
+    }
+
+    }
+}
   setBg();//видно старое изображение при обновлении страницы. переход не плавный
+
   const nextSlide = document.querySelector('.slide-next')
   const prevSlide = document.querySelector('.slide-prev')
 
   function getSlideNext(){
-    if(randomNum>=20){
-        randomNum = 1;
         setBg();
-    }else{
-        randomNum ++;
-        setBg();
-
-    }
   }
   function getSlidePrev(){
-    if(randomNum<=1){
-        randomNum = 20;
-        setBg();
-    }else{
-        randomNum --;
-        setBg();
-
-    }
+       setBg();
   }
   nextSlide.addEventListener('click', getSlideNext);
   prevSlide.addEventListener('click', getSlidePrev);
@@ -173,7 +188,7 @@ if (name.value== ""){
     const quotes = 'data.json';
     const res = await fetch(quotes);
     const data = await res.json();
-    let randomQutes = getRandomNum(0,data[userLanguages].length);
+    let randomQutes = getRandomNum(0,data[userLanguages].length-1);
     quote.textContent = `"${data[userLanguages][randomQutes].text}"`;
     author.textContent = data[userLanguages][randomQutes].author
   }
@@ -258,5 +273,6 @@ playList.forEach(el => {
   li.textContent= `${el.title}`
   playListContainer.append(li)
 })
+
 
 ///settings//
