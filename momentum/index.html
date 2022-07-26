@@ -39,25 +39,87 @@
     <date class="date"></date>
     <div class="greeting-container">
       <span class="greeting"></span>
-      <input type="text" class="name" placeholder="[Enter name]" value="">
+      <input type="text" class="user-name" placeholder="[Enter name]" value="">
     </div>
   </main>
   <footer class="footer">
-    <!-- <div class="popup-setting">
+    <div class="popup-setting">
+    <div class="setting-title"><h3>Setting</h3></div>
+
     <div class="setting-name">
-      <div class="setting language">language</div>
-      <div class="setting link-background">источник получения фото для фонового</div>
-      <div class="setting language">language</div>
+      <div class="setting language">Language: </div>
+      <select name="language" id="language" >
+          <option value="ru" selected="selected">Russian</option>
+          <option value="en-US">English</option>
+      </select>
+      </div>
+
+    <div class="setting-name">
+      <div class="setting link-background">Photo source: </div>
+     <select name="photo-source" >
+        <option value="GitHub" selected="selected">GitHub</option>
+        <option value="unsplash">Unsplash API</option>
+        <option value="flickr">Flickr API</option>
+    </select>
+      </div>
+
+    <div class="setting-name setting-tags">
+      <div class="setting tags">Tags: </div>
+      <input type="text" class="tag" value="" >
+      </div>
+
+      <div class="setting-name">
+        <div class="setting block">
+          
+          <span>Hide the time? </span>
+          <input name="time" type='checkbox' value="hide">
+     </div>
+        </div>
+
+      <div class="setting-name">
+        <div class="setting block">
+          <span> Hide the date? </span>
+          <input name="date" type='checkbox' value="hide">
+       </div>
+        </div>
+
+      <div class="setting-name">
+        <div class="setting block">
+            <span>Hide the greeting? </span>
+          <input name="greeting" type='checkbox' value="hide">
+
+        </div>
+        </div>
+
+      <div class="setting-name">
+        <div class="setting block">
+       <span>Hide the quote? </span>
+          <input name="quote" type='checkbox' value="hide">
+        </div>
+        </div>
+
+      <div class="setting-name">
+        <div class="setting block">
+      <span>Hide the weather? </span>
+          <input name="weather" type='checkbox' value="hide">
+
+
+        </div>
+        </div>
+        
+      <div class="setting-name">
+        <div class="setting block">
+     <span>Hide the audio? </span>
+          <input name="audio" type='checkbox' value="hide">
+        </div>
+        </div>
+
+
+
     </div>
-  
-    <div class="setting-value">
-        <select name="language" >
-            <option value="ru" selected="selected">Russian</option>
-            <option value="en-US">English</option>
-        </select>
-    </div>
-  </div>
-    <button class="setting-button">Setting</button> -->
+
+    <div class="setting-button"></div>
+
     <button class="change-quote"></button>
     <div>
       <div class="quote"></div>

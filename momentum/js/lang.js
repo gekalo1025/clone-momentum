@@ -50,3 +50,46 @@ const weatherTranslation ={
     }
 
 }
+const settingTranslation ={
+    "setting" : {
+        "ru":'Настройки ',
+        "en-US":'Setting',
+        },
+    "Language" : {
+        "ru":'Язык: ',
+        "en-US":'Language: ',
+        },
+    "photosource" : {
+        "ru":'Источник фото: ',
+        "en-US":'Photo source: ',
+        },
+    "tags" : {
+        "ru":'Теги: ',
+        "en-US":'Tags: ',
+        },
+    "timeBlock" : {
+        "ru":'Скрыть время? ',
+        "en-US":'Hide the time?',
+        },
+    "dateBlock" : {
+        "ru":'Скрыть дату? ',
+        "en-US":'Hide the date?',
+        },
+    "greetingBlock" : {
+        "ru":'Скрыть приветствие? ',
+        "en-US":'Hide the greeting?',
+        },
+    "quoteBlock" : {
+        "ru":'Скрыть цитату? ',
+        "en-US":'Hide the quote?',
+        },
+    "weatherBlock" : {
+        "ru":'Скрыть погоду? ',
+        "en-US":'Hide the weather?',
+        },
+    "audioBlock" : {
+        "ru":'Скрыть плеер? ',
+        "en-US":'Hide the audio?',
+        },
+
+}

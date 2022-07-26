@@ -19,6 +19,7 @@ body {
   background: url("../assets/img/bg.jpg") center/cover, rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
   transition: background-image 1s ease-in-out;
+  overflow: hidden;
 }
 
 .header {
@@ -127,6 +128,7 @@ body {
   width: 180px;
   min-height: 180px;  
   text-align: left;
+  transition: all 1s;
 }
 
 .weather-error {
@@ -199,12 +201,14 @@ body {
   font-family: 'Arial-MT';
   font-size: 100px;
   letter-spacing: -4px;  
+  transition: all 2s;
 }
 
 .date {
   min-height: 28px;
   font-size: 24px;
   margin-bottom: 20px;
+  transition: all 1s;
 }
 
 .greeting-container {
@@ -215,6 +219,7 @@ body {
   min-height: 48px;
   width: 100vw;
   font-size: 40px;
+  transition: all 1s;
 }
 
 .greeting {
@@ -223,7 +228,7 @@ body {
   text-align: right;
 }
 
-.name {
+.user-name {
   flex: 1;
   max-width: 50%;
   padding: 10px;
@@ -235,7 +240,7 @@ body {
   outline: 0;
 }
 
-.name::placeholder {
+.user-name::placeholder {
   color: #fff;
   opacity: .6;
 }
@@ -250,26 +255,72 @@ body {
   min-height: 160px;  
   padding: 20px;
 }
-/* .popup-setting{
+.hide{
+  transition: all 1s;
+  opacity: 0;
+  /* height: 0px; */
+
+
+}
+.popup-setting{
 display: flex;
+flex-direction: column;
+align-items: flex-start;
 color: black;
 position: absolute;
-bottom: 8%;
-left:1%;
-width: 30%;
-height: 50%;
+bottom: 6%;
+border-radius: 20px;
+left:5%;
+width: auto;
+height: auto;
 background-color: white;
+opacity: 0;
+transition: all 1s;
+padding: 20px;
+
+}
+.popup-setting.active{
+  transition: all 1s;
+  opacity: 0.8;
+
+}
+.setting-title{
+  align-self: center;
+  padding-bottom: 10px;
 
 }
 .setting-name{
-  flex-basis: 66%;
+display: flex;
+padding: 7px;
+transition: all 1s;
 }
-.setting-button{
-position: fixed;
-bottom: 5%;
-left:2%;
 
-} */
+.setting-name >div{
+padding-right: 10px;
+font-size: 18px;
+} 
+
+.setting-button{
+  cursor: pointer;
+  position: fixed;
+  bottom: 5%;
+  left:2%;
+  height: 30px;
+  width: 30px;
+  background-image: url("../assets/svg/settings-button.svg");
+  background-size: 100%;
+  transition: all 0.5s;
+
+
+}
+.setting-button:hover{
+  transition: all 0.5s;
+width: 40px;
+height: 40px;
+}
+.tag {
+  display: block;
+}
 
 .change-quote {
   margin-bottom: 30px;
@@ -299,7 +350,7 @@ left:2%;
     padding: 5px;
   }
 
-  .name {
+  .user-name {
     font-size: 32px;
     padding: 5px;
   }
