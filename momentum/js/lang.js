@@ -32,7 +32,7 @@ const greetingTranslation = {
 }
 
 }
-const weatherTranslation ={
+ const weatherTranslation ={
    
     "windSpeed" : {
     "ru":'Скорость ветра',
@@ -50,7 +50,7 @@ const weatherTranslation ={
     }
 
 }
-const settingTranslation ={
+ const settingTranslation ={
     "setting" : {
         "ru":'Настройки ',
         "en-US":'Setting',

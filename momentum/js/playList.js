@@ -1,4 +1,4 @@
-const playList = [
+export const playList = [
     {      
       title: 'Aqua Caelestis',
       src: './assets/sounds/Aqua Caelestis.mp3',
