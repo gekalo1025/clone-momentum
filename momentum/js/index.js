@@ -10,12 +10,16 @@ import {getLinkToImageFlickr} from "./function/Background slider/getLinkToImageF
 import {getLinkToImageUnsplash} from "./function/Background slider/getLinkToImageUnsplash.js";
 import {getWeather} from "./function/Weather/getWeather.js";
 import {getQuotes} from "./function/Quote/getQuotes.js";
-import {audio, playAudio, playNext, playPrev, toggleBtn} from "./function/Audio player/player.js";
+import {audio, playAudio, playNext, playPrev, toggleBtn, muteAudio, currentTimeAudio, seekAudio, showAudioDuration} from "./function/Audio player/player.js";
 import {playList} from "./playList.js";
 import {createElementPlaylist} from "./function/Audio player/createElementPlaylist.js";
 import {setLocalStorage} from "./function/Local storage/setLocalStorage.js";
 import {getLocalStorage} from "./function/Local storage/getLocalStorage.js";
+import {nameCheck} from "./function/Greeting/nameCheck.js";
 
+const volumeSlider = document.querySelector('.volume-slider')
+const seek = document.querySelector('.seek');
+const muteButton = document.querySelector('.mute');
 const settingBlocks = document.querySelectorAll('.setting-name input')
 const blockTimeSetting = document.getElementsByName('time');
 const blockDateSetting = document.getElementsByName('date');
@@ -95,6 +99,8 @@ setBackground();
 showTime();
 
 /// Greetings ///
+userName.addEventListener('change',nameCheck)
+
 userName.addEventListener('change', ()=>{
 state.userName = userName.value;
 
@@ -168,8 +174,33 @@ playNextButton.addEventListener('click', toggleBtn);
 playPrevButton.addEventListener('click', playPrev);
 playPrevButton.addEventListener('click', toggleBtn);
 
+muteButton.addEventListener('click',muteAudio)
+
 
 createElementPlaylist(playList);
+
+currentTimeAudio();
+showAudioDuration();
+seek.addEventListener('change',seekAudio);
+
+
+muteButton.addEventListener('mouseover', ()=>{
+  volumeSlider.style.opacity = 1;
+})
+
+muteButton.addEventListener('mouseout', ()=>{
+  
+  if(event.relatedTarget.classList.contains('player-controls')){
+    volumeSlider.style.opacity = 0;
+  }
+})
+
+volumeSlider.addEventListener('mouseout', ()=>{
+
+  volumeSlider.style.opacity = 0;
+
+})
+
 
 
 //local storege//

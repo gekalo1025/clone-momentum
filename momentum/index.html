@@ -11,11 +11,17 @@
 <body>
   <header class="header">
     <div class="player">
+      <div class="audio-title "></div>
       <div class="player-controls">
         <button class="play-prev player-icon"></button>
         <button class="play player-icon"></button>
         <button class="play-next player-icon"></button>
+        <button class="mute player-icon"></button>
+        <input class="volume-slider" type="range">
       </div>
+      <span class="currentaudioDuration"></span>
+      <span class="audioDuration"></span>
+      <input class="seek" type="range"value=''>
       <ul class="play-list"></ul>
     </div>
     <div class="weather">

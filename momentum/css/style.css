@@ -36,8 +36,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 120px;
+  width: 150px;
   margin-bottom: 28px;
+  position: relative;
 }
 
 .play-list {
@@ -118,6 +119,24 @@ body {
 .play-next {
   background-image: url("../assets/svg/play-next.svg");
 }
+.mute {
+  background-image: url("../assets/svg/sound-on.svg");
+}
+.volume-slider{
+  position: absolute;
+  top: 5 px;
+  left: 160px;
+  background-color: aqua;
+  height: 10px;
+  width: 100px;
+  transition: 1s;
+  opacity: 0;
+}
+.audio-title {
+  text-align: left;
+  padding: 10px;
+  transition: 1s;
+}
 
 .weather {
   display: flex;
@@ -194,6 +213,7 @@ body {
   right: 20px;
   background-image: url("../assets/svg/slider-next.svg");
 }
+
 
 .time {
   min-height: 124px;
