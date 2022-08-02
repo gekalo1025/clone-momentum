@@ -33,7 +33,6 @@
       weatherDescription.textContent = 'Enter an existing city';
       wind.textContent = '';
       humidity.textContent = '';
-      alert('City not found');
       cityWeather.value = '';
     }
     

@@ -1,17 +1,22 @@
 import * as Const from "../Setting/State.js"; 
+import { getWeather } from "../Weather/getWeather.js";
  
  export function getLocalStorage() {
     if(localStorage.getItem('state')) {
-    const config = JSON.parse(localStorage.getItem('state'))
-    Const.userName.value = config.userName;
+    const config = JSON.parse(localStorage.getItem('state'));
+    // Const.userName.value = config.userName;
     Const.cityWeather.value = config.cityWeather;
     Const.language.value = config.language;
     Const.photoSource.value = config.photoSource;
     Const.tags.value = config.tags;
+
     }
     // if(localStorage.getItem('city')) {
-    //   cityWeather.value = localStorage.getItem('city');
+    //   Const.cityWeather.value = localStorage.getItem('city');
     // }
+    if(localStorage.getItem('name')) {
+      Const.userName.value = localStorage.getItem('name');
+    }
     // if(localStorage.getItem('language')) {
     //   language.value = localStorage.getItem('language');
     // }

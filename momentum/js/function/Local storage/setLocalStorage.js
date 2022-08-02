@@ -3,7 +3,7 @@ import {state} from "../Setting/State.js";
 
 export function setLocalStorage() {
     localStorage.setItem('state',JSON.stringify(state));
-    // localStorage.setItem('name',state.userName);
+    localStorage.setItem('name',state.userName);
     // localStorage.setItem('city',state.cityWeather);
     // localStorage.setItem('language',state.language);
     // localStorage.setItem('photoSource',state.photoSource);

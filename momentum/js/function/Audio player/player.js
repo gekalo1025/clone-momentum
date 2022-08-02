@@ -18,9 +18,10 @@ let playNum = 0;
  
 
 export function playAudio() {
-  if(!isPlay){
-    audio.src = playList[playNum].src;
-    audio.currentTime = 0;
+
+if(!isPlay){
+  audio.src = playList[playNum].src;
+  audio.currentTime = 0;
     audio.volume = 0.7;
     audio.play();
     isPlay=true;
@@ -28,6 +29,7 @@ export function playAudio() {
     audio.pause();
     isPlay=false;
   }
+
 }
 
 export function toggleBtn() {

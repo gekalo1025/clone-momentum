@@ -99,11 +99,9 @@ setBackground();
 showTime();
 
 /// Greetings ///
-userName.addEventListener('change',nameCheck)
-
 userName.addEventListener('change', ()=>{
+nameCheck();
 state.userName = userName.value;
-
 
 });
 showGreeting();
@@ -173,6 +171,7 @@ playNextButton.addEventListener('click', toggleBtn);
 
 playPrevButton.addEventListener('click', playPrev);
 playPrevButton.addEventListener('click', toggleBtn);
+
 
 muteButton.addEventListener('click',muteAudio)
 
