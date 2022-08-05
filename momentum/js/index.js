@@ -40,7 +40,9 @@ const playPrevButton  = document.querySelector('.play-prev');
 const playNextButton = document.querySelector('.play-next');
 
 
-
+//local storege//
+window.addEventListener('beforeunload', setLocalStorage);
+window.addEventListener('load', getLocalStorage);
 
 /// Settings ///
 hideTags();
@@ -67,7 +69,11 @@ blockDateSetting[0].addEventListener('change',hideBlock)
 blockGreetingSetting[0].addEventListener('change',hideBlock)
 blockQuoteSetting[0].addEventListener('change',hideBlock)
 blockWeatherSetting[0].addEventListener('change',hideBlock)
-blockAudioSetting[0].addEventListener('change',hideBlock)
+
+blockAudioSetting[0].addEventListener('change',() => {
+  state.blockAudio = blockAudioSetting.checked;
+  hideBlock();
+});
 //
 
 language.addEventListener('change',() => {
@@ -101,7 +107,6 @@ showTime();
 /// Greetings ///
 userName.addEventListener('change', ()=>{
 nameCheck();
-state.userName = userName.value;
 
 });
 showGreeting();
@@ -149,7 +154,6 @@ function getSlidePrev(){
   getWeather();
 
   cityWeather.addEventListener('change', ()=>{
-    state.cityWeather=cityWeather.value;
     getWeather();
   });
 
@@ -160,7 +164,6 @@ function getSlidePrev(){
   buttonChangeQuote.addEventListener('click', getQuotes);
 
   // Audio player//
-
 audio.addEventListener('ended',playNext);
 
 play.addEventListener('click', playAudio);
@@ -202,6 +205,3 @@ volumeSlider.addEventListener('mouseout', ()=>{
 
 
 
-//local storege//
-window.addEventListener('beforeunload', setLocalStorage);
-window.addEventListener('load', getLocalStorage);
