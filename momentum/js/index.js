@@ -1,21 +1,22 @@
-import showTime  from "./function/Clock-and-calendar/showTime.js";
-import {getRandomNum} from "./function/Background slider/getRandomNum.js";
-import {showGreeting} from "./function/Greeting/showGreeting.js";
-import {setBackground} from "./function/Background slider/setBackground.js";
-import {hideTags} from "./function/Setting/hideTags.js";
-import {state, userName} from "./function/Setting/State.js";
-import {settingTranslite} from "./function/Setting/settingTranslite.js";
-import {hideBlock} from "./function/Setting/hideBlock.js";
-import {getLinkToImageFlickr} from "./function/Background slider/getLinkToImageFlickr.js";
-import {getLinkToImageUnsplash} from "./function/Background slider/getLinkToImageUnsplash.js";
-import {getWeather} from "./function/Weather/getWeather.js";
-import {getQuotes} from "./function/Quote/getQuotes.js";
-import {audio, playAudio, playNext, playPrev, toggleBtn, muteAudio, currentTimeAudio, seekAudio, showAudioDuration} from "./function/Audio player/player.js";
-import {playList} from "./playList.js";
-import {createElementPlaylist} from "./function/Audio player/createElementPlaylist.js";
-import {setLocalStorage} from "./function/Local storage/setLocalStorage.js";
-import {getLocalStorage} from "./function/Local storage/getLocalStorage.js";
-import {nameCheck} from "./function/Greeting/nameCheck.js";
+import showTime from "./function/Clock-and-calendar/showTime.js";
+import { getRandomNum } from "./function/Background slider/getRandomNum.js";
+import { showGreeting } from "./function/Greeting/showGreeting.js";
+import { setBackground } from "./function/Background slider/setBackground.js";
+import { hideTags } from "./function/Setting/hideTags.js";
+import { state, userName } from "./function/Setting/State.js";
+import { settingTranslite } from "./function/Setting/settingTranslite.js";
+import { hideBlock } from "./function/Setting/hideBlock.js";
+import { getLinkToImageFlickr } from "./function/Background slider/getLinkToImageFlickr.js";
+import { getLinkToImageUnsplash } from "./function/Background slider/getLinkToImageUnsplash.js";
+import { getWeather } from "./function/Weather/getWeather.js";
+import { getQuotes } from "./function/Quote/getQuotes.js";
+import { audio, playAudio, playNext, playPrev, toggleBtn, muteAudio, currentTimeAudio, seekAudio, showAudioDuration, playNum } from "./function/Audio player/player.js";
+import { playList } from "./playList.js";
+import { createElementPlaylist } from "./function/Audio player/createElementPlaylist.js";
+import { setLocalStorage } from "./function/Local storage/setLocalStorage.js";
+import { getLocalStorage } from "./function/Local storage/getLocalStorage.js";
+import { nameCheck } from "./function/Greeting/nameCheck.js";
+
 
 const volumeSlider = document.querySelector('.volume-slider')
 const seek = document.querySelector('.seek');
@@ -32,11 +33,11 @@ const photoSource = document.getElementsByName('photo-source')[0]
 const nextSlide = document.querySelector('.slide-next');
 const prevSlide = document.querySelector('.slide-prev');
 const tags = document.querySelector('.tag')
-export let randomNum = getRandomNum(1,20);
+export let randomNum = getRandomNum(1, 20);
 const cityWeather = document.querySelector('.city')
 const buttonChangeQuote = document.querySelector('.change-quote')
 const play = document.querySelector('.play');
-const playPrevButton  = document.querySelector('.play-prev');
+const playPrevButton = document.querySelector('.play-prev');
 const playNextButton = document.querySelector('.play-next');
 
 
@@ -53,31 +54,31 @@ document.querySelector('body').addEventListener('click', (event) => {
   const tags = document.querySelector('.tag')
   const settingButton = document.querySelector('.setting-button');
 
-  if(event.target.closest('.setting-button')){
+  if (event.target.closest('.setting-button')) {
     popupSetting.classList.toggle('active')
 
   }
   if (!event.target.closest('.popup-setting, .setting-button')) {
     popupSetting.classList.remove('active')
- }
+  }
 
 });
 
 // изменить этот блок если возможно
-blockTimeSetting[0].addEventListener('change',hideBlock)
-blockDateSetting[0].addEventListener('change',hideBlock)
-blockGreetingSetting[0].addEventListener('change',hideBlock)
-blockQuoteSetting[0].addEventListener('change',hideBlock)
-blockWeatherSetting[0].addEventListener('change',hideBlock)
+blockTimeSetting[0].addEventListener('change', hideBlock)
+blockDateSetting[0].addEventListener('change', hideBlock)
+blockGreetingSetting[0].addEventListener('change', hideBlock)
+blockQuoteSetting[0].addEventListener('change', hideBlock)
+blockWeatherSetting[0].addEventListener('change', hideBlock)
 
-blockAudioSetting[0].addEventListener('change',() => {
+blockAudioSetting[0].addEventListener('change', () => {
   state.blockAudio = blockAudioSetting.checked;
   hideBlock();
 });
 //
 
-language.addEventListener('change',() => {
-  state.language = language.value ;
+language.addEventListener('change', () => {
+  state.language = language.value;
   getWeather();
   showTime();
   showGreeting();
@@ -86,18 +87,18 @@ language.addEventListener('change',() => {
 
 });
 
-photoSource.addEventListener('change',() => {
-  state.photoSource = photoSource.value ;
+photoSource.addEventListener('change', () => {
+  state.photoSource = photoSource.value;
   setBackground();
   hideTags();
 
 });
 
-tags.addEventListener('change',() => {
-state.tags = tags.value ;
-getLinkToImageFlickr();
-getLinkToImageUnsplash();
-setBackground();
+tags.addEventListener('change', () => {
+  state.tags = tags.value;
+  getLinkToImageFlickr();
+  getLinkToImageUnsplash();
+  setBackground();
 });
 
 
@@ -105,8 +106,8 @@ setBackground();
 showTime();
 
 /// Greetings ///
-userName.addEventListener('change', ()=>{
-nameCheck();
+userName.addEventListener('change', () => {
+  nameCheck();
 
 });
 showGreeting();
@@ -120,51 +121,51 @@ prevSlide.addEventListener('click', getSlidePrev);
 
 // Исправить если это возможно!
 // не получилось импортировать эти функции так как переменная randomNum экспортируется как константа и ее увеличение не передается обратно.
-function getSlidePrev(){
-    if(photoSource.value == "GitHub"){
-      if(randomNum <= 1){
-        randomNum = 20;
-        setBackground();
-    }else{
-        randomNum --;
-        setBackground();
-    }
-    }else{
+function getSlidePrev() {
+  if (photoSource.value == "GitHub") {
+    if (randomNum <= 1) {
+      randomNum = 20;
+      setBackground();
+    } else {
+      randomNum--;
       setBackground();
     }
-  };
-
-  function getSlideNext(){
-    if(photoSource.value == 'GitHub'){
-      if(randomNum >= 20){
-        randomNum = 1;
-        setBackground();
-    }else{
-        randomNum ++;
-        setBackground();
-  
-    }
-    }else{
-      setBackground();
-    }
+  } else {
+    setBackground();
   }
- 
-  // Weather // 
+};
 
+function getSlideNext() {
+  if (photoSource.value == 'GitHub') {
+    if (randomNum >= 20) {
+      randomNum = 1;
+      setBackground();
+    } else {
+      randomNum++;
+      setBackground();
+
+    }
+  } else {
+    setBackground();
+  }
+}
+
+// Weather // 
+
+getWeather();
+
+cityWeather.addEventListener('change', () => {
   getWeather();
-
-  cityWeather.addEventListener('change', ()=>{
-    getWeather();
-  });
+});
 
 
-  //Quote of the day widget//
+//Quote of the day widget//
 
-  getQuotes();
-  buttonChangeQuote.addEventListener('click', getQuotes);
+getQuotes();
+buttonChangeQuote.addEventListener('click', getQuotes);
 
-  // Audio player//
-audio.addEventListener('ended',playNext);
+// Audio player//
+audio.addEventListener('ended', playNext);
 
 play.addEventListener('click', playAudio);
 play.addEventListener('click', toggleBtn);
@@ -176,32 +177,39 @@ playPrevButton.addEventListener('click', playPrev);
 playPrevButton.addEventListener('click', toggleBtn);
 
 
-muteButton.addEventListener('click',muteAudio)
+muteButton.addEventListener('click', muteAudio)
 
 
 createElementPlaylist(playList);
 
 currentTimeAudio();
 showAudioDuration();
-seek.addEventListener('change',seekAudio);
+seek.addEventListener('change', seekAudio);
 
 
-muteButton.addEventListener('mouseover', ()=>{
+muteButton.addEventListener('mouseover', () => {
   volumeSlider.style.opacity = 1;
 })
 
-muteButton.addEventListener('mouseout', ()=>{
-  
-  if(event.relatedTarget.classList.contains('player-controls')){
+muteButton.addEventListener('mouseout', () => {
+
+  if (event.relatedTarget.classList.contains('player-controls')) {
     volumeSlider.style.opacity = 0;
   }
 })
 
-volumeSlider.addEventListener('mouseout', ()=>{
+volumeSlider.addEventListener('mouseout', () => {
 
   volumeSlider.style.opacity = 0;
 
 })
+export function activeAudio(n) {
+  const playItem = document.querySelectorAll('.play-list>li')
+  for (let index = 0; index < playItem.length; index++) {
+    playItem[index].style.color = '#fff';
 
+  }
+    playItem[n].style.color = 'gold';
+};
 
 

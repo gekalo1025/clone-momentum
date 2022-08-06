@@ -1,4 +1,5 @@
 import {playList} from "../../playList.js";
+import { activeAudio} from "../../index.js";
 const playPrevButton  = document.querySelector('.play-prev');
 const play = document.querySelector('.play');
 const playNextButton = document.querySelector('.play-next');
@@ -9,11 +10,12 @@ const audioDuration = document.querySelector('.audioDuration')
 const currentAudioDuration = document.querySelector('.currentaudioDuration')
 const audioTitle = document.querySelector('.audio-title')
 const volumeSlider = document.querySelector('.volume-slider')
+const playItem =document.querySelectorAll('.play-item')
 let currentDuration=  0;
 
 let isPlay = false;
-let playNum = 0;
- 
+export let playNum = 0;
+
 
 export function playAudio() {
 
@@ -23,6 +25,7 @@ if(!isPlay){
     audio.volume = 0.7;
     audio.play();
     isPlay=true;
+    activeAudio(playNum);
   }else{
     audio.pause();
     isPlay=false;
@@ -53,7 +56,7 @@ export function playNext() {
     audio.play();
     isPlay=true;
   }
-
+  activeAudio(playNum);
 }
 export function playPrev() {
   if(playNum===0){
@@ -69,7 +72,7 @@ export function playPrev() {
     audio.play();
     isPlay=true;
   }
-
+  activeAudio(playNum);
 }
 
 export function muteAudio (){
@@ -113,6 +116,7 @@ export function showAudioDuration(){
 }
 
 function showCurrentAudioDuration(){
+  
   if(audio.duration){
     if(currentDuration<60){
       currentAudioDuration.textContent = `0:${String(currentDuration).padStart(2, "0")}  /`
