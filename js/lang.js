@@ -1,4 +1,3 @@
-////перевод greeting
 const greetingTranslation = {
 
  "placeholder":{
